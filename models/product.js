@@ -18,14 +18,14 @@ var PageSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    sorting: {
+    price: {
         type: Number,
         required: true
     },
-    sorting: {
-        type: Number
+    image: {
+        type: String
     }
 
 });
 
-var Page = module.exports = mongoose.model('Page', PageSchema);
+var Page = module.exports = mongoose.model('Product', PageSchema);
