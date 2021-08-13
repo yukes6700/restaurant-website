@@ -1,11 +1,12 @@
 var express = require('express');
+const { isAdmin } = require('../config/auth');
 var router = express.Router();
 
 // Get page model
 var Page = require('../models/pages')
 
 // get pages index
-router.get('/', function(req, res){
+router.get('/', isAdmin, function(req, res){
     // res.send('admin area');
     Page.find({}).sort({sorting: 1}).exec(function (err, pages){
         res.render('admin/pages',{

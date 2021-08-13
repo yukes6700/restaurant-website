@@ -1,15 +1,16 @@
 var express = require('express');
+const { isAdmin } = require('../config/auth');
 var router = express.Router();
 
 // get category model
 var Category = require('../models/category');
 
 // get category index
-router.get('/', function(req, res){
+router.get('/', isAdmin, function(req, res){
     // res.send('cats area');
     Category.find({},function(err, categories) {
         if (err) return console.log(err);
-        console.log(categories)
+        // console.log(categories)
         res.render('admin/categories',{
             categories: categories
         });
@@ -17,7 +18,7 @@ router.get('/', function(req, res){
 });
 
 // // get add catgegory
-router.get('/add-category', function(req, res){
+router.get('/add-category', isAdmin, function(req, res){
     var title = "";
     
     res.render('admin/add_category',{
@@ -26,7 +27,7 @@ router.get('/add-category', function(req, res){
 });
 
 // post add category
-router.post('/add-category', function(req, res){
+router.post('/add-category', isAdmin, function(req, res){
     
     // req.checkBody('title', 'Title must have a value.').notEmpty();
 
@@ -68,7 +69,7 @@ router.post('/add-category', function(req, res){
 
 
 // get edit category
-router.get('/edit-category/:id', function (req,res){
+router.get('/edit-category/:id', isAdmin, function (req,res){
     Category.findById(req.params.id,function (err, category){
         if (err)
         return console.log(err);
@@ -81,7 +82,7 @@ router.get('/edit-category/:id', function (req,res){
 });
 
 // post edit category
-router.post('/edit-category/:id', function (req,res){
+router.post('/edit-category/:id', isAdmin, function (req,res){
     var title= req.body.title;
     var slug = title.replace(/\s+/g, '-').toLowerCase();
     var id = req.params.id;
@@ -115,7 +116,7 @@ router.post('/edit-category/:id', function (req,res){
 });
 
 // get delete category
-router.get('/delete-category/:id', function (req,res){
+router.get('/delete-category/:id', isAdmin, function (req,res){
     Category.findByIdAndRemove(req.params.id, function (err){
         if(err)
         return console.log(err);

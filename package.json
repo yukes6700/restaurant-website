@@ -21,6 +21,8 @@
     "fs-extra": "^10.0.0",
     "mkdirp": "^1.0.4",
     "mongoose": "^5.13.3",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
     "resize-img": "^2.0.0"
   }
 }

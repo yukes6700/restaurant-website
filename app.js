@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 const { body, validationResult } = require('express-validator');
 var fileUpload = require('express-fileupload');
+const passport = require('passport')
 
 
 // connect to db
@@ -40,13 +41,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+
 // express session middleware
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: { secure: false }
 }));
+
+
+// passport session middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
+
+require('./config/passport')(passport)
 
 // // Express Validator middleware
 // app.use(expressValidator({
@@ -79,11 +91,19 @@ var pages = require('./routes/pages.js');
 var adminPages = require('./routes/admin_pages.js');
 var adminCategories = require('./routes/admin_categories.js');
 var adminProducts = require('./routes/admin_products.js');
+var products = require('./routes/products.js');
+var cart = require('./routes/cart.js');
+var auth = require('./routes/auth.js');
 
 app.use('/admin/pages', adminPages);
 app.use('/admin/categories', adminCategories);
 app.use('/admin/products', adminProducts);
-app.use('/', pages);
+app.use('/products', products);
+app.use('/cart', cart);
+app.use('/', auth);
+app.use('/', (req, res)=>{
+  res.redirect('/products')
+});
 
 // start the server
 var port = 3000;
