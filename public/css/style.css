@@ -69,6 +69,7 @@ table.alignmiddle td {
     box-shadow: 5px 5px 15px rgb(0, 0, 0, .4);
     border-radius: .4em;
     padding: 0;
+    overflow: hidden;
 }
 
 .card-custom img{
@@ -77,10 +78,10 @@ table.alignmiddle td {
     object-fit: cover;
 }
 
-/* .card-custom a.pa{
-    width: 100%;
-    height: 60%;
-} */
+.card-custom a{
+    color: inherit;
+    text-decoration: none;
+}
 
 .card-custom h3{
     max-height: 2.8em;
