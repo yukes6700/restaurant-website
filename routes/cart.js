@@ -116,7 +116,7 @@ router.get('/update/:product', isUser, function (req, res) {
     }
 
     req.flash('success', 'Cart updated!');
-    res.redirect('/cart/checkout');
+    res.redirect('/cart');
 
 });
 
